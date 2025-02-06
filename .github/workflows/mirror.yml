@@ -16,10 +16,13 @@ jobs:
         with:
           fetch-depth: 0
       - name: Set up SSH for GitLab
+        env:
+          SSH_KNOWN_HOSTS: ${{ vars.GIT_SSH_KNOWN_HOSTS }}
+          SSH_PRIVATE_KEY: ${{ vars.GIT_SSH_PRIVATE_KEY }}
         run: |
           mkdir -p $HOME/.ssh
-          echo ${{ vars.GIT_SSH_KNOWN_HOSTS }} > $HOME/.ssh/known_hosts
-          echo ${{ secrets.GIT_SSH_PRIVATE_KEY }} > $HOME/.ssh/id_rsa
+          echo $SSH_KNOWN_HOSTS > $HOME/.ssh/known_hosts
+          echo $SSH_PRIVATE_KEY > $HOME/.ssh/id_rsa
       - name: Mirror current ref to GitLab
         run: |
           git remote add gitlab ssh://git@gitlab.com/mbackonja1/mirror.git
