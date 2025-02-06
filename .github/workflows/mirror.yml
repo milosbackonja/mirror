@@ -23,7 +23,7 @@ jobs:
           mkdir -p $HOME/.ssh
           echo $SSH_KNOWN_HOSTS > $HOME/.ssh/known_hosts
           echo $SSH_PRIVATE_KEY > $HOME/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          chmod 600 $HOME/.ssh/id_rsa
       - name: Mirror current ref to GitLab
         run: |
           git remote add gitlab ssh://git@gitlab.com/mbackonja1/mirror.git
