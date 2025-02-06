@@ -19,7 +19,6 @@ jobs:
         run: |
           mkdir -p $HOME/.ssh
           echo ${{ secrets.GIT_SSH_PRIVATE_KEY }} > $HOME/.ssh/id_rsa
-          chmod 600 $HOME/.ssh/id_rsa
           echo ${{ secrets.GIT_SSH_KNOWN_HOSTS }} >> $HOME/.ssh/known_hosts
       - name: Mirror current ref to GitLab
         run: |
