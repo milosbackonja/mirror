@@ -15,15 +15,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Set up SSH for GitLab
-        env:
-          SSH_KNOWN_HOSTS: ${{ vars.GIT_SSH_KNOWN_HOSTS }}
-          SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY }}
-        run: |
-          mkdir -p $HOME/.ssh
-          echo $SSH_KNOWN_HOSTS > $HOME/.ssh/known_hosts
-          echo $SSH_PRIVATE_KEY > $HOME/.ssh/id_rsa
-          chmod 600 $HOME/.ssh/id_rsa
+      - uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.GIT_SSH_PRIVATE_KEY }}
+          name: id_rsa
+          known_hosts: ${{ vars.GIT_SSH_KNOWN_HOSTS }}
       - name: Mirror current ref to GitLab
         run: |
           git remote add gitlab ssh://git@gitlab.com/mbackonja1/mirror.git
